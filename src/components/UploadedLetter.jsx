@@ -46,7 +46,7 @@ const CoverLetterGenerator = () => {
 
 		try {
 			const response = await axios.post(
-				"http://localhost:3000/parse-cover-letter",
+				"http://localhost:3000/api/parse-cover-letter",
 				{
 					file: uploadedLetter,
 					name: placeholders.name,
@@ -70,7 +70,7 @@ const CoverLetterGenerator = () => {
 
 		try {
 			const response = await axios.post(
-				"http://localhost:3000/generate-better-cover-letter",
+				"http://localhost:3000/api/generate-better-cover-letter",
 				{
 					file: updatedLetter, // Use updatedLetter instead of uploadedLetter
 					name: placeholders.name,

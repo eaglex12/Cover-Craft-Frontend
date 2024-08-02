@@ -1,5 +1,3 @@
-// src/CoverLetterGenerator.js
-
 import React, { useState } from "react";
 import {
 	Container,
@@ -39,7 +37,11 @@ const PreCoverLetterGenerator = () => {
 
       Sincerely,
       Divyansh Singh Rathore
-    `.trim();
+    `
+			.trim()
+			.split("\n")
+			.map((line) => line.trimStart())
+			.join("\n");
 
 		setGeneratedLetter(letter);
 	};
@@ -150,6 +152,7 @@ const PreCoverLetterGenerator = () => {
 							whiteSpace: "pre-wrap",
 							wordWrap: "break-word",
 							textAlign: "left",
+							textIndent: "0", // Ensure no text-indent
 						}}
 					>
 						{uploadedLetter}
@@ -181,6 +184,7 @@ const PreCoverLetterGenerator = () => {
 							whiteSpace: "pre-wrap",
 							wordWrap: "break-word",
 							textAlign: "left",
+							textIndent: "0", // Ensure no text-indent
 						}}
 					>
 						{generatedLetter}
