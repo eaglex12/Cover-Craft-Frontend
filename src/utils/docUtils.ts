@@ -1,8 +1,7 @@
-// src/utils.js
-
 import mammoth from "mammoth";
 
-export const readDocxFile = async (file) => {
+// Type declaration for file parameter
+export const readDocxFile = async (file: File): Promise<string> => {
 	try {
 		const arrayBuffer = await file.arrayBuffer();
 		const { value } = await mammoth.extractRawText({ arrayBuffer });

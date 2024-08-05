@@ -1,27 +1,29 @@
-import React, { useState } from "react";
+"use client";
+import { useState, ChangeEvent } from "react";
 import { Container, TextField, Button, Paper, Typography } from "@mui/material";
-import axios from "axios";
-import { readDocxFile } from "../utils/docutils"; // Ensure this path is correct
+import { readDocxFile } from "../../utils/docUtils";
+import { FetchUtils } from "../../utils/axiosInstance";
+import { responseData } from "@/types/cover-letter-types";
 
-const CoverLetterGenerator = () => {
-	const [uploadedLetter, setUploadedLetter] = useState("");
+const CoverLetterGenerator: React.FC = () => {
+	const [uploadedLetter, setUploadedLetter] = useState<string>("");
 	const [placeholders, setPlaceholders] = useState({
 		name: "",
 		company: "",
 		role: "",
 	});
-	const [updatedLetter, setUpdatedLetter] = useState("");
-	const [betterCoverLetter, setBetterCoverLetter] = useState("");
-	const [view, setView] = useState("upload"); // New state to manage the current view
+	const [updatedLetter, setUpdatedLetter] = useState<string>("");
+	const [betterCoverLetter, setBetterCoverLetter] = useState<string>("");
+	const [view, setView] = useState<"upload" | "uploaded" | "updated">("upload");
 
-	const handleFileUpload = async (event) => {
-		const file = event.target.files[0];
+	const handleFileUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0];
 		if (file) {
-			const fileType = file.name.split(".").pop().toLowerCase();
+			const fileType = file.name.split(".").pop()?.toLowerCase();
 			if (fileType === "txt") {
 				const reader = new FileReader();
 				reader.onload = (e) => {
-					setUploadedLetter(e.target.result);
+					setUploadedLetter(e.target?.result as string);
 					setView("uploaded");
 				};
 				reader.readAsText(file);
@@ -45,19 +47,14 @@ const CoverLetterGenerator = () => {
 		if (!uploadedLetter) return;
 
 		try {
-			const response = await axios.post(
-				"http://localhost:3000/api/parse-cover-letter",
-				{
-					file: uploadedLetter,
-					name: placeholders.name,
-					company: placeholders.company,
-					role: placeholders.role,
-				}
-			);
+			const response = (await FetchUtils.postRequest("api/parse-cover-letter", {
+				file: uploadedLetter,
+				name: placeholders.name,
+				company: placeholders.company,
+				role: placeholders.role,
+			})) as responseData;
 
-			const { text } = response.data;
-			console.log("🚀 ~ handleUpload ~ text:", text);
-
+			const { text } = response;
 			setUpdatedLetter(text);
 			setView("updated");
 		} catch (error) {
@@ -66,29 +63,31 @@ const CoverLetterGenerator = () => {
 	};
 
 	const handleGenerateBetterCoverLetter = async () => {
-		if (!updatedLetter) return; // Ensure updatedLetter is used
+		if (!updatedLetter) return;
 
 		try {
-			const response = await axios.post(
-				"http://localhost:3000/api/generate-better-cover-letter",
+			const response = (await FetchUtils.postRequest(
+				"api/generate-better-cover-letter",
 				{
-					file: updatedLetter, // Use updatedLetter instead of uploadedLetter
+					file: updatedLetter,
 					name: placeholders.name,
 					company: placeholders.company,
 					role: placeholders.role,
 				}
-			);
+			)) as responseData;
 
-			const { text } = response.data;
+			const { text } = response;
 			setBetterCoverLetter(text);
 		} catch (error) {
 			console.error("Failed to generate better cover letter", error);
 		}
 	};
 
-	const handleUpdate = (field) => (e) => {
-		setPlaceholders({ ...placeholders, [field]: e.target.value });
-	};
+	const handleUpdate =
+		(field: keyof typeof placeholders) =>
+		(e: ChangeEvent<HTMLInputElement>) => {
+			setPlaceholders({ ...placeholders, [field]: e.target.value });
+		};
 
 	return (
 		<Container maxWidth="md">
@@ -137,7 +136,7 @@ const CoverLetterGenerator = () => {
 				</Paper>
 			)}
 
-			{(view === "updated" || betterCoverLetter) && (
+			{view === "updated" && (
 				<Paper elevation={3} sx={{ padding: "20px", marginTop: "20px" }}>
 					<Typography variant="h6">Updated Cover Letter</Typography>
 					<pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>

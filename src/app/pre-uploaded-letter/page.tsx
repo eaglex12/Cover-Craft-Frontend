@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+"use client";
+
+import { useState } from "react";
 import {
 	Container,
 	Typography,
@@ -8,9 +10,9 @@ import {
 	Snackbar,
 	Alert,
 } from "@mui/material";
-import { readDocxFile } from "../utils/docutils"; // Make sure to import the function correctly
+import { readDocxFile } from "../../utils/docUtils"; // Make sure this path is correct
 
-const PreCoverLetterGenerator = () => {
+const CoverLetterGenerator: React.FC = () => {
 	const [company, setCompany] = useState("");
 	const [role, setRole] = useState("");
 	const [generatedLetter, setGeneratedLetter] = useState("");
@@ -57,20 +59,21 @@ const PreCoverLetterGenerator = () => {
 			});
 	};
 
-	const handleFileUpload = async (event) => {
-		const file = event.target.files[0];
+	const handleFileUpload = async (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const file = event.target.files?.[0];
 		if (file) {
-			const fileType = file.name.split(".").pop().toLowerCase();
+			const fileType = file.name.split(".").pop()?.toLowerCase();
 			if (fileType === "txt") {
 				const reader = new FileReader();
 				reader.onload = (e) => {
-					setUploadedLetter(e.target.result);
+					setUploadedLetter(e.target?.result as string);
 				};
 				reader.readAsText(file);
 			} else if (fileType === "docx") {
 				try {
 					const docxText = await readDocxFile(file);
-					console.log("🚀 ~ handleFileUpload ~ docxText:", typeof docxText);
 					setUploadedLetter(docxText);
 				} catch (error) {
 					console.error("Error reading docx file:", error);
@@ -214,4 +217,4 @@ const PreCoverLetterGenerator = () => {
 	);
 };
 
-export default PreCoverLetterGenerator;
+export default CoverLetterGenerator;
