@@ -16,6 +16,10 @@ const words = [
 		className: "text-white text-2xl md:text-4xl",
 	},
 	{
+		text: "Letter",
+		className: "text-white text-2xl md:text-4xl",
+	},
+	{
 		text: "for",
 		className: "text-white text-2xl md:text-4xl",
 	},
