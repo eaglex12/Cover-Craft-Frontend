@@ -3,6 +3,8 @@
 import { Inter } from "next/font/google";
 import { CssBaseline } from "@mui/material";
 import "./globals.css"; // Ensure you import any global CSS if needed
+import { ThemeProvider } from "@/components/theme-provider";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +16,17 @@ export const metadata = {
 const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
-				<CssBaseline /> {/* Ensure to use Material-UI's CSS baseline */}
-				{children}
+			<body className={`${inter.className} bg-background`}>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<Navbar />
+					<CssBaseline /> {/* Ensure to use Material-UI's CSS baseline */}
+					{children}
+				</ThemeProvider>
 			</body>
 		</html>
 	);

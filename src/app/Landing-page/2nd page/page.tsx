@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -29,8 +30,7 @@ export function SecondPage() {
 			description:
 				"Whether its you or Tyler Durden, you can get to know about our product on YouTube",
 			skeleton: <SkeletonThree />,
-			className:
-				"col-span-1 lg:col-span-3 lg:border-r  dark:border-neutral-800",
+			className: "col-span-1 lg:col-span-3 lg:border-r  dark:border-neutral-800",
 		},
 		{
 			title: "Deploy in seconds",
@@ -252,7 +252,7 @@ export const Globe = ({ className }: { className?: string }) => {
 			mapBrightness: 6,
 			baseColor: [0.3, 0.3, 0.3],
 			markerColor: [0.1, 0.8, 1],
-			glowColor: [1, 1, 1],
+			glowColor: [0, 0, 0],
 			markers: [
 				// longitude latitude
 				{ location: [37.7595, -122.4367], size: 0.03 },
