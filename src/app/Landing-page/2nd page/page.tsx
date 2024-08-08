@@ -279,3 +279,5 @@ export const Globe = ({ className }: { className?: string }) => {
 		/>
 	);
 };
+
+// Some changes

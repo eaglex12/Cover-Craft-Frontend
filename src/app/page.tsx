@@ -3,6 +3,7 @@ import { Globe } from "./Landing-page/2nd page/page";
 import Image from "next/image";
 import { FlipWords } from "@/components/ui/flip-words";
 import { Button } from "@/components/ui/button";
+import CoverLetterInput from "@/components/cover-letter-input";
 
 const Home: React.FC = () => {
 	return (
@@ -23,34 +24,7 @@ const Home: React.FC = () => {
 					</p>
 					<Button>Get Started</Button>
 				</div>
-				<div className="bg-secondary rounded-lg p-5 space-y-5 mx-20">
-					<div className="grid grid-cols-2 gap-5">
-						<div className="bg-background rounded-lg flex items-center justify-center">
-							<Image
-								src="/images/210.png"
-								alt="something"
-								width={150}
-								height={150}
-							/>
-						</div>
-						<div className="bg-background rounded-lg flex items-center justify-center">
-							<Image
-								src="/images/181.png"
-								alt="something"
-								width={150}
-								height={150}
-							/>
-						</div>
-					</div>
-					<div className="bg-background rounded-lg flex items-center justify-center">
-						<Image
-							src="/images/182.png"
-							alt="something"
-							width={300}
-							height={300}
-						/>
-					</div>
-				</div>
+				<CoverLetterInput />
 			</div>
 			<div className="flex justify-center mb-8">
 				<Globe className="w-64 h-64" />
