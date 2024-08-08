@@ -12,7 +12,7 @@ export default function Navbar() {
 				</Link>
 				<Link
 					href="/login"
-					className="text-secondary py-2 px-10 rounded-lg bg-primary"
+					className="text-accent py-2 px-10 rounded neumorphism"
 				>
 					Login
 				</Link>
