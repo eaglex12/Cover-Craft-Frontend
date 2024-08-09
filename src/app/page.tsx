@@ -34,10 +34,12 @@ const Home: React.FC = () => {
 				<div className="grid grid-cols-2 items-center px-20 py-20">
 					<div>
 						<div className="text-foreground text-6xl font-bold mb-4">
-							Generate a Cover Letter{" "}
-							<FlipWords
-								words={["Instantly", "Quickly", "Rapidly", "Swiftly"]}
-							/>
+							Generate a Cover Letter <br />
+							<span className="mt-2 block">
+								<FlipWords
+									words={["Instantly", "Quickly", "Rapidly", "Swiftly"]}
+								/>
+							</span>
 						</div>
 						<p className="text-accent text-lg mb-6 max-w-xl text-black dark:text-gray-500 ">
 							Our platform provides a quick and easy way to create professional
@@ -47,6 +49,7 @@ const Home: React.FC = () => {
 						</p>
 						<Button>Get Started</Button>
 					</div>
+
 					<CoverLetterInput />
 				</div>
 				<div className="flex justify-center mb-8">
