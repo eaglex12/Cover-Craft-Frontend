@@ -1,10 +1,9 @@
-// app/layout.tsx
-
 import { Inter } from "next/font/google";
 import { CssBaseline } from "@mui/material";
 import "./globals.css"; // Ensure you import any global CSS if needed
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
+import { ReduxProvider } from "@/redux/provider"; // Import your ReduxProvider
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,16 +16,20 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	return (
 		<html lang="en">
 			<body className={`${inter.className} bg-background`}>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<Navbar />
-					<CssBaseline /> {/* Ensure to use Material-UI's CSS baseline */}
-					{children}
-				</ThemeProvider>
+				<ReduxProvider>
+					{" "}
+					{/* Wrap everything inside ReduxProvider */}
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange
+					>
+						<Navbar />
+						<CssBaseline /> {/* Material-UI's CSS baseline */}
+						{children}
+					</ThemeProvider>
+				</ReduxProvider>
 			</body>
 		</html>
 	);

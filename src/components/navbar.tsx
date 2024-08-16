@@ -24,7 +24,7 @@ export default function Navbar() {
 				Cover Craft
 			</Link>
 			<div className="flex items-center space-x-5">
-				<Link href="#" className="p-2 text-gray-700 dark:text-gray-300">
+				<Link href="/user" className="p-2 text-gray-700 dark:text-gray-300">
 					Sign Up
 				</Link>
 				<Link
