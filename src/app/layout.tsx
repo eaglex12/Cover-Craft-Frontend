@@ -4,6 +4,7 @@ import "./globals.css"; // Ensure you import any global CSS if needed
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
 import { ReduxProvider } from "@/redux/provider"; // Import your ReduxProvider
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 						<CssBaseline /> {/* Material-UI's CSS baseline */}
 						{children}
 					</ThemeProvider>
+					<Toaster />
 				</ReduxProvider>
 			</body>
 		</html>
